@@ -25,9 +25,9 @@ export const cocktails: Cocktail[] = [
       { measure: '3 CL', name: 'Sweet Vermouth' },
     ],
     method: [
-      '将所有材料倒入装满冰块的调酒杯，搅拌至充分冰镇。',
-      '滤入装有大冰块的岩石杯。',
-      '以橙皮卷装饰。',
+      'Add ingredients to a mixing glass filled with ice, and stir until well-chilled.',
+      'Strain into a rocks glass over a large ice cube.',
+      'Garnish with an orange peel.',
     ],
   },
   {
@@ -42,9 +42,9 @@ export const cocktails: Cocktail[] = [
       { measure: '2.5 CL', name: 'Lime Juice' },
     ],
     method: [
-      '用青柠擦湿杯沿，蘸上一圈海盐。',
-      '所有材料加冰用力摇匀。',
-      '滤入杯中，以青柠片装饰。',
+      'Rub the rim of a coupe with lime and dip in flaky salt.',
+      'Shake all ingredients hard with ice.',
+      'Strain into the glass. Garnish with a lime wheel.',
     ],
   },
   {
@@ -59,9 +59,9 @@ export const cocktails: Cocktail[] = [
       { measure: '3 CL', name: 'Espresso' },
     ],
     method: [
-      '所有材料加满冰块，用力摇至起厚泡沫。',
-      '双重过滤入预先冰镇的蝶形杯。',
-      '放上三颗咖啡豆。',
+      'Shake all ingredients hard with ice until a thick foam forms.',
+      'Double strain into a chilled coupe.',
+      'Float three coffee beans on top.',
     ],
   },
   {
@@ -76,9 +76,9 @@ export const cocktails: Cocktail[] = [
       { measure: '1 CL', name: 'Soda' },
     ],
     method: [
-      '在装满冰块的大号葡萄酒杯中依次倒入材料。',
-      '轻轻搅拌一圈。',
-      '以半片橙子装饰。',
+      'Build over ice in a large wine glass.',
+      'Stir gently once.',
+      'Garnish with a half orange slice.',
     ],
   },
   {
@@ -93,9 +93,9 @@ export const cocktails: Cocktail[] = [
       { measure: '1 CL', name: 'Olive Brine' },
     ],
     method: [
-      '所有材料倒入装满冰块的调酒杯，搅拌至极冷。',
-      '滤入预先冰镇的马天尼杯。',
-      '以橄榄或柠檬皮装饰。',
+      'Stir all ingredients with ice until very cold.',
+      'Strain into a chilled martini glass.',
+      'Garnish with an olive or lemon peel.',
     ],
   },
   {
@@ -110,9 +110,9 @@ export const cocktails: Cocktail[] = [
       { measure: '2 DASH', name: 'Bitters' },
     ],
     method: [
-      '在岩石杯中放入糖浆与苦精，加入波本。',
-      '加入大冰块，搅拌约三十秒。',
-      '以橙皮扭条与樱桃装饰。',
+      'Add syrup, bitters and bourbon to a rocks glass.',
+      'Add a large ice cube and stir for thirty seconds.',
+      'Garnish with an orange twist and a cherry.',
     ],
   },
 ]

@@ -63,18 +63,18 @@ export function CocktailCard({
           </h2>
         </header>
 
-        <div className="relative mt-[10cqw] aspect-[4/5] w-[62cqw] shrink-0 overflow-hidden bg-blush">
-          <Image
-            src={cocktail.artwork}
-            alt={cocktail.artworkAlt}
-            fill
-            sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
-            priority={priority}
-            className="object-cover"
-          />
-          <p
-            className="absolute top-0 left-[calc(100%+3.4cqw)] font-wide text-[2cqw] leading-none font-semibold tracking-[0.07em] whitespace-nowrap text-ink [writing-mode:vertical-rl]"
-          >
+        <div className="relative mt-[10cqw] aspect-[4/5] w-[62cqw] shrink-0">
+          <div className="absolute inset-0 overflow-hidden bg-blush">
+            <Image
+              src={cocktail.artwork}
+              alt={cocktail.artworkAlt}
+              fill
+              sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
+              priority={priority}
+              className="object-cover"
+            />
+          </div>
+          <p className="absolute top-0 left-[calc(100%+3.4cqw)] font-wide text-[2cqw] leading-none font-semibold tracking-[0.07em] whitespace-nowrap text-ink [writing-mode:vertical-rl]">
             {formatRecipe(cocktail)}
           </p>
         </div>

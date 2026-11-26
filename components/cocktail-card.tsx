@@ -3,11 +3,38 @@ import Link from 'next/link'
 import type { Cocktail } from '@/lib/cocktails'
 import { cn } from '@/lib/utils'
 
+export type TitleVariant = 'bold' | 'light' | 'serif' | 'geometric'
+
+const titleVariants: Record<
+  TitleVariant,
+  { className: string; width: number }
+> = {
+  bold: {
+    className: 'font-wide font-extrabold tracking-[-0.02em]',
+    width: 0.86,
+  },
+  light: {
+    className: 'font-wide font-light tracking-[0.02em]',
+    width: 0.86,
+  },
+  serif: {
+    className:
+      "font-medium tracking-[0.04em] [font-family:var(--font-cormorant),serif]",
+    width: 0.72,
+  },
+  geometric: {
+    className:
+      "font-light tracking-[0.1em] [font-family:var(--font-jost),sans-serif]",
+    width: 0.8,
+  },
+}
+
 type CocktailCardProps = {
   cocktail: Cocktail
   index: number
   priority?: boolean
   className?: string
+  titleVariant?: TitleVariant
   /** When provided the whole card becomes a link to this route. */
   href?: string
 }
@@ -17,11 +44,11 @@ type CocktailCardProps = {
  * the same measure of the card regardless of length. Units are container
  * query widths (cqw), so the whole card scales as one printed object.
  */
-function getTitleLayout(name: string) {
+function getTitleLayout(name: string, widthFactor: number) {
   const words = name.toUpperCase().split(' ')
   const lines = words.length > 1 ? words : [words[0]]
   const longest = Math.max(...lines.map((line) => line.length))
-  const size = Math.min(13, 74 / (longest * 0.86))
+  const size = Math.min(13, 74 / (longest * widthFactor))
   return { lines, size }
 }
 
@@ -37,9 +64,11 @@ export function CocktailCard({
   index,
   priority = false,
   className,
+  titleVariant = cocktail.titleVariant ?? 'bold',
   href,
 }: CocktailCardProps) {
-  const { lines, size } = getTitleLayout(cocktail.name)
+  const variant = titleVariants[titleVariant]
+  const { lines, size } = getTitleLayout(cocktail.name, variant.width)
   const number = String(index + 1).padStart(2, '0')
 
   const card = (
@@ -56,7 +85,7 @@ export function CocktailCard({
         <header className="flex h-[22cqw] w-[100cqw] items-center justify-center pt-[9cqw]">
           <h2
             id={`cocktail-${cocktail.id}`}
-            className="font-wide text-center font-extrabold leading-[0.98] tracking-[-0.02em] text-ink"
+            className={cn("text-center leading-[0.98] text-ink", variant.className)}
             style={{ fontSize: `${size}cqw` }}
           >
             {lines.map((line) => (

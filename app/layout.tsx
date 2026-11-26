@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Noto_Sans_TC } from 'next/font/google'
+import { Archivo, Cormorant_Garamond, Jost, Noto_Sans_TC } from 'next/font/google'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
 import './globals.css'
@@ -9,6 +9,20 @@ const archivo = Archivo({
   subsets: ['latin'],
   axes: ['wdth'],
   variable: '--font-archivo',
+  display: 'swap',
+})
+
+const cormorant = Cormorant_Garamond({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  display: 'swap',
+})
+
+const jost = Jost({
+  weight: ['300', '400'],
+  subsets: ['latin'],
+  variable: '--font-jost',
   display: 'swap',
 })
 
@@ -58,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="zh-Hant" className={`${archivo.variable} ${notoSansTC.variable}`}>
+    <html lang="zh-Hant" className={`${archivo.variable} ${cormorant.variable} ${jost.variable} ${notoSansTC.variable}`}>
       <body className="flex min-h-screen flex-col antialiased">
         <SiteHeader />
         <main className="flex-1">{children}</main>

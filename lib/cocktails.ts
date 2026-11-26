@@ -16,6 +16,7 @@ export type Cocktail = {
   artwork: string
   artworkAlt: string
   featured?: boolean
+  titleVariant?: 'bold' | 'light' | 'serif' | 'geometric'
   intro: string
   ingredients: Ingredient[]
   method: string[]
@@ -42,6 +43,7 @@ const flavor = (sweet: number, bitter: number, sour: number, strength: number): 
 export const cocktails: Cocktail[] = [
   {
     id: 'negroni',
+    titleVariant: 'serif',
     slug: 'negroni',
     name: 'Negroni',
     artwork: '/art/negroni.png',

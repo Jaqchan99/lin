@@ -155,12 +155,13 @@
 
 @theme inline {
   --color-paper: #fffffe;
-  --color-blush: #eedfdf;
-  --color-ink: #141312;
-  --color-ink-soft: #5a5252;
+  --color-mist: #f3f3f2;
+  --color-ink: #111111;
+  --color-ink-soft: #66666a;
+  --color-rule: #dcdcdc;
   --font-sans:
-    var(--font-archivo), 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei',
-    system-ui, sans-serif;
+    var(--font-archivo), var(--font-noto-tc), 'PingFang TC',
+    'Microsoft JhengHei', system-ui, sans-serif;
 }
 
 @layer base {
@@ -168,10 +169,16 @@
     @apply border-border outline-ring/50;
   }
   html {
-    background: var(--color-blush);
+    background: #ffffff;
+    scroll-padding-top: 5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
-    @apply bg-blush text-ink font-sans;
+    @apply bg-white text-ink font-sans;
     font-stretch: 100%;
   }
   ::selection {
@@ -186,14 +193,14 @@
   }
   .paper-shadow {
     box-shadow:
-      0 1px 1px rgb(60 30 30 / 0.08),
-      0 6px 10px -4px rgb(90 45 45 / 0.16),
-      0 22px 36px -14px rgb(90 45 45 / 0.28);
+      0 0 0 1px rgb(0 0 0 / 0.06),
+      0 6px 10px -4px rgb(0 0 0 / 0.08),
+      0 22px 36px -14px rgb(0 0 0 / 0.18);
   }
   .paper-shadow-lifted {
     box-shadow:
-      0 1px 1px rgb(60 30 30 / 0.08),
-      0 10px 16px -4px rgb(90 45 45 / 0.18),
-      0 34px 48px -16px rgb(90 45 45 / 0.34);
+      0 0 0 1px rgb(0 0 0 / 0.08),
+      0 10px 16px -4px rgb(0 0 0 / 0.1),
+      0 34px 48px -16px rgb(0 0 0 / 0.24);
   }
 }

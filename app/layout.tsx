@@ -1,6 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Archivo } from 'next/font/google'
+import { Archivo, Noto_Sans_TC } from 'next/font/google'
+import { SiteFooter } from '@/components/site-footer'
+import { SiteHeader } from '@/components/site-header'
 import './globals.css'
 
 const archivo = Archivo({
@@ -10,10 +12,21 @@ const archivo = Archivo({
   display: 'swap',
 })
 
+const notoSansTC = Noto_Sans_TC({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  variable: '--font-noto-tc',
+  display: 'swap',
+  preload: false,
+})
+
 export const metadata: Metadata = {
-  title: 'LIN — Cocktail Archive',
+  title: {
+    default: 'LIN — Cocktail Archive',
+    template: '%s — LIN',
+  },
   description:
-    '一位独立调酒师的手绘鸡尾酒档案：水彩插画、简洁配方与编辑式排版。',
+    'LIN 的個人作品集：一位調酒師與 Mixologist 的水彩雞尾酒檔案，收錄配方、風味與創作筆記。',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -36,7 +49,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'light',
-  themeColor: '#eedfdf',
+  themeColor: '#ffffff',
 }
 
 export default function RootLayout({
@@ -45,9 +58,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="zh-CN" className={archivo.variable}>
-      <body className="antialiased">
-        {children}
+    <html lang="zh-Hant" className={`${archivo.variable} ${notoSansTC.variable}`}>
+      <body className="flex min-h-screen flex-col antialiased">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

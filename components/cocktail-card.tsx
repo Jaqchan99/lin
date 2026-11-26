@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Cocktail } from '@/lib/cocktails'
 import { cn } from '@/lib/utils'
 
@@ -7,6 +8,8 @@ type CocktailCardProps = {
   index: number
   priority?: boolean
   className?: string
+  /** When provided the whole card becomes a link to this route. */
+  href?: string
 }
 
 /**
@@ -34,11 +37,12 @@ export function CocktailCard({
   index,
   priority = false,
   className,
+  href,
 }: CocktailCardProps) {
   const { lines, size } = getTitleLayout(cocktail.name)
   const number = String(index + 1).padStart(2, '0')
 
-  return (
+  const card = (
     <article
       className={cn(
         '@container group aspect-[17/24] w-full bg-paper paper-shadow',
@@ -64,14 +68,14 @@ export function CocktailCard({
         </header>
 
         <div className="relative mt-[10cqw] aspect-[4/5] w-[62cqw] shrink-0">
-          <div className="absolute inset-0 overflow-hidden bg-blush">
+          <div className="absolute inset-0 overflow-hidden bg-mist">
             <Image
               src={cocktail.artwork}
               alt={cocktail.artworkAlt}
               fill
               sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
               priority={priority}
-              className="object-cover"
+              className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.035]"
             />
           </div>
           <p className="absolute top-0 left-[calc(100%+3.4cqw)] font-wide text-[2cqw] leading-none font-semibold tracking-[0.07em] whitespace-nowrap text-ink [writing-mode:vertical-rl]">
@@ -101,5 +105,17 @@ export function CocktailCard({
         </footer>
       </div>
     </article>
+  )
+
+  if (!href) return card
+
+  return (
+    <Link
+      href={href}
+      aria-label={`${cocktail.name} — 查看詳情`}
+      className="block outline-offset-8 focus-visible:outline-2 focus-visible:outline-ink"
+    >
+      {card}
+    </Link>
   )
 }

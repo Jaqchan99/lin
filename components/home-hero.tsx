@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { Cocktail } from '@/lib/cocktails'
 
 type HomeHeroProps = {
-  cocktail: Cocktail
+  cocktail?: Cocktail
   index: number
 }
 
@@ -59,6 +59,7 @@ export function HomeHero({ cocktail, index }: HomeHeroProps) {
           </div>
         </div>
 
+        {cocktail && (
         <figure className="lg:col-span-5">
           <Link
             href={`/cocktail/${cocktail.slug}`}
@@ -84,6 +85,7 @@ export function HomeHero({ cocktail, index }: HomeHeroProps) {
             </figcaption>
           </Link>
         </figure>
+        )}
       </div>
     </section>
   )

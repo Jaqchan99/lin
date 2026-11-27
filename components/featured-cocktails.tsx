@@ -1,10 +1,15 @@
+'use client'
+
 import Link from 'next/link'
 import { CocktailCard } from '@/components/cocktail-card'
 import { SectionHeading } from '@/components/section-heading'
-import { cocktails, getFeaturedCocktails } from '@/lib/cocktails'
+import { useCocktails } from '@/hooks/use-cocktails'
 
 export function FeaturedCocktails() {
-  const featured = getFeaturedCocktails()
+  const { published } = useCocktails()
+  const featured = published.filter((cocktail) => cocktail.featured).slice(0, 3)
+
+  if (featured.length === 0) return null
 
   return (
     <section
@@ -26,7 +31,7 @@ export function FeaturedCocktails() {
           >
             <CocktailCard
               cocktail={cocktail}
-              index={cocktails.indexOf(cocktail)}
+              index={published.indexOf(cocktail)}
               href={`/cocktail/${cocktail.slug}`}
               priority={position === 0}
             />
@@ -39,7 +44,7 @@ export function FeaturedCocktails() {
           href="/collection"
           className="group inline-flex h-12 items-center gap-3 border border-ink px-7 text-sm tracking-[0.12em] transition-colors outline-offset-4 hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-ink"
         >
-          {`查看全部 ${String(cocktails.length).padStart(2, '0')} 款作品`}
+          {`查看全部 ${String(published.length).padStart(2, '0')} 款作品`}
           <span
             aria-hidden
             className="transition-transform group-hover:translate-x-1"

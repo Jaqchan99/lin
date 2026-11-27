@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { PlaceholderNote } from '@/components/placeholder-note'
-import type { Cocktail } from '@/lib/cocktails'
+import { getCategory, type Cocktail } from '@/lib/cocktails'
 
 type CocktailDetailProps = {
   cocktail: Cocktail
   index: number
   total: number
+  /** Studio preview: the back link is inert so the page can be inspected in place. */
+  preview?: boolean
 }
 
 function DetailSection({
@@ -64,36 +66,55 @@ function FlavorMeter({ label, value }: { label: string; value: number }) {
   )
 }
 
-export function CocktailDetail({ cocktail, index, total }: CocktailDetailProps) {
+export function CocktailDetail({
+  cocktail,
+  index,
+  total,
+  preview = false,
+}: CocktailDetailProps) {
   const number = String(index + 1).padStart(2, '0')
+  const category = getCategory(cocktail.category)
 
   return (
     <article className="mx-auto w-full max-w-[1440px] px-5 pt-8 pb-20 sm:px-10 sm:pt-12 sm:pb-28 lg:px-16">
-      <Link
-        href="/collection"
-        className="group inline-flex items-center gap-2 text-sm tracking-[0.1em] text-ink-soft transition-colors hover:text-ink"
-      >
-        <span
-          aria-hidden
-          className="transition-transform group-hover:-translate-x-1"
-        >
-          ←
+      {preview ? (
+        <span className="inline-flex items-center gap-2 text-sm tracking-[0.1em] text-ink-soft">
+          <span aria-hidden>←</span>
+          返回作品集
         </span>
-        返回作品集
-      </Link>
+      ) : (
+        <Link
+          href="/collection"
+          className="group inline-flex items-center gap-2 text-sm tracking-[0.1em] text-ink-soft transition-colors hover:text-ink"
+        >
+          <span
+            aria-hidden
+            className="transition-transform group-hover:-translate-x-1"
+          >
+            ←
+          </span>
+          返回作品集
+        </Link>
+      )}
 
       <div className="mt-8 grid gap-12 sm:mt-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-6">
           <div className="lg:sticky lg:top-24">
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-mist">
-              <Image
-                src={cocktail.artwork}
-                alt={cocktail.artworkAlt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                className="object-cover"
-              />
+              {cocktail.artwork ? (
+                <Image
+                  src={cocktail.artwork}
+                  alt={cocktail.artworkAlt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center text-sm tracking-[0.2em] text-ink-soft">
+                  尚未加入水彩插畫
+                </div>
+              )}
             </div>
             <p className="mt-4 flex justify-between text-[11px] tracking-[0.16em] text-ink-soft uppercase tabular-nums">
               <span>Watercolor Illustration</span>
@@ -105,7 +126,7 @@ export function CocktailDetail({ cocktail, index, total }: CocktailDetailProps) 
         <div className="lg:col-span-5 lg:col-start-8">
           <header className="flex flex-col gap-6 pb-10">
             <p className="text-[11px] tracking-[0.2em] text-ink-soft uppercase">
-              {`Cocktail Archive — Nº ${number}`}
+              {`Cocktail Archive — Nº ${number} · ${category.en}`}
             </p>
             <h1 className="font-wide text-[clamp(2.25rem,4.6vw,4.25rem)] leading-[0.95] font-extrabold tracking-[-0.02em] text-balance uppercase">
               {cocktail.name}
@@ -156,23 +177,44 @@ export function CocktailDetail({ cocktail, index, total }: CocktailDetailProps) 
             </dl>
           </DetailSection>
 
-          <DetailSection
-            id="taste-title"
-            title="口感與質地"
-            eyebrow="Taste & Texture"
-            placeholder={cocktail.isPlaceholder}
-          >
-            <p className="text-sm leading-[1.9]">{cocktail.taste}</p>
-          </DetailSection>
+          {cocktail.taste && (
+            <DetailSection
+              id="taste-title"
+              title="口感與質地"
+              eyebrow="Taste & Texture"
+              placeholder={cocktail.isPlaceholder}
+            >
+              <p className="text-sm leading-[1.9] whitespace-pre-line">
+                {cocktail.taste}
+              </p>
+            </DetailSection>
+          )}
 
-          <DetailSection
-            id="story-title"
-            title="靈感與創作故事"
-            eyebrow="Inspiration"
-            placeholder={cocktail.isPlaceholder}
-          >
-            <p className="text-sm leading-[1.9]">{cocktail.story}</p>
-          </DetailSection>
+          {cocktail.inspiration && (
+            <DetailSection
+              id="inspiration-title"
+              title="靈感"
+              eyebrow="Inspiration"
+              placeholder={cocktail.isPlaceholder}
+            >
+              <p className="text-sm leading-[1.9] whitespace-pre-line">
+                {cocktail.inspiration}
+              </p>
+            </DetailSection>
+          )}
+
+          {cocktail.story && (
+            <DetailSection
+              id="story-title"
+              title="創作故事"
+              eyebrow="Story"
+              placeholder={cocktail.isPlaceholder}
+            >
+              <p className="text-sm leading-[1.9] whitespace-pre-line">
+                {cocktail.story}
+              </p>
+            </DetailSection>
+          )}
         </div>
       </div>
     </article>

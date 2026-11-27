@@ -66,7 +66,15 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-1 border-t border-rule px-5 py-5 text-[11px] tracking-[0.1em] text-ink-soft sm:flex-row sm:justify-between sm:px-10 lg:px-16">
         <span>© 2026 LIN — Cocktail Archive</span>
-        <span>示意插畫 · 配方僅供參考</span>
+        <span className="flex flex-wrap items-center gap-x-4">
+          <span>示意插畫 · 配方僅供參考</span>
+          <Link
+            href="/studio"
+            className="underline-offset-4 hover:text-ink hover:underline"
+          >
+            創作者入口
+          </Link>
+        </span>
       </div>
     </footer>
   )

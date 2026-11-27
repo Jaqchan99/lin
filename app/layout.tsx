@@ -1,8 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Archivo, Cormorant_Garamond, Jost, Noto_Sans_TC } from 'next/font/google'
-import { SiteFooter } from '@/components/site-footer'
-import { SiteHeader } from '@/components/site-header'
 import './globals.css'
 
 const archivo = Archivo({
@@ -74,9 +72,7 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant" className={`${archivo.variable} ${cormorant.variable} ${jost.variable} ${notoSansTC.variable}`}>
       <body className="flex min-h-screen flex-col antialiased">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

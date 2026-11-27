@@ -1,9 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Cocktail } from '@/lib/cocktails'
+import type { Cocktail, TitleVariant } from '@/lib/cocktails'
 import { cn } from '@/lib/utils'
-
-export type TitleVariant = 'bold' | 'light' | 'serif' | 'geometric'
 
 const titleVariants: Record<
   TitleVariant,
@@ -98,14 +96,20 @@ export function CocktailCard({
 
         <div className="relative mt-[10cqw] aspect-[4/5] w-[62cqw] shrink-0">
           <div className="absolute inset-0 overflow-hidden bg-mist">
-            <Image
-              src={cocktail.artwork}
-              alt={cocktail.artworkAlt}
-              fill
-              sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
-              priority={priority}
-              className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.035]"
-            />
+            {cocktail.artwork ? (
+              <Image
+                src={cocktail.artwork}
+                alt={cocktail.artworkAlt}
+                fill
+                sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
+                priority={priority}
+                className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.035]"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center border border-dashed border-ink/25 text-[2.2cqw] tracking-[0.2em] text-ink-soft">
+                尚未加入水彩插畫
+              </div>
+            )}
           </div>
           <p className="absolute top-0 left-[calc(100%+3.4cqw)] font-wide text-[2cqw] leading-none font-semibold tracking-[0.07em] whitespace-nowrap text-ink [writing-mode:vertical-rl]">
             {formatRecipe(cocktail)}
